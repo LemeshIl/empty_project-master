@@ -33,23 +33,23 @@ public class Organization {
     /**
      * Полное иия
      */
-    @Column(name = "full_name", length = 50, nullable = false)
-    private String full_name;
+    @Column(name = "fullName", length = 50, nullable = false)
+    private String fullName;
 
     /**
      * ИНН
-     * т.к. поле примитивного типа, оно не может быть nullable
+
      */
-    @Column(name = "inn", nullable = false)
-    private int inn;
+    @Column(name = "inn",length = 50, nullable = false)
+    private String inn;
 
 
     /**
      * КПП
      * т.к. поле примитивного типа, оно не может быть nullable
      */
-    @Column(name = "kpp", nullable = false)
-    private int kpp;
+    @Column(name = "kpp", length = 50, nullable = false)
+    private String kpp;
     /**
      * Адрес
      */
@@ -60,14 +60,14 @@ public class Organization {
      * телефон
      * т.к. поле примитивного типа, оно не может быть nullable
      */
-    @Column(name = "phone", nullable = false)
-    private int phone;
+    @Column(name = "phone", length = 50, nullable = false)
+    private String phone;
 
     /**
      * Состояние
      */
     @Column(name = "is_active", length = 10, nullable = false)
-    private boolean is_active;
+    private boolean isActive;
 
 
     /**
@@ -77,15 +77,16 @@ public class Organization {
 
     }
 
-    public Organization(String name, String full_name, int inn, int kpp,
-                        String address, int phone, boolean is_active) {
+
+    public Organization(String name, String fullName, String inn, String kpp,
+                        String address, String phone, boolean isActive) {
         this.name = name;
-        this.full_name = full_name;
+        this.fullName = fullName;
         this.inn = inn;
         this.kpp = kpp;
         this.address = address;
         this.phone = phone;
-        this.is_active = is_active;
+        this.isActive = isActive;
     }
 
     public Long getId() {
@@ -104,27 +105,27 @@ public class Organization {
         this.name = name;
     }
 
-    public String getFull_name() {
-        return full_name;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setFull_name(String full_name) {
-        this.full_name = full_name;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
-    public int getInn() {
+    public String getInn() {
         return inn;
     }
 
-    public void setInn(int inn) {
+    public void setInn(String inn) {
         this.inn = inn;
     }
 
-    public int getKpp() {
+    public String getKpp() {
         return kpp;
     }
 
-    public void setKpp(int kpp) {
+    public void setKpp(String kpp) {
         this.kpp = kpp;
     }
 
@@ -136,20 +137,20 @@ public class Organization {
         this.address = address;
     }
 
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
-    public boolean isIs_active() {
-        return is_active;
+    public boolean isActive() {
+        return isActive;
     }
 
-    public void setIs_active(boolean is_active) {
-        this.is_active = is_active;
+    public void setActive(boolean active) {
+        isActive = active;
     }
 
     @Override
@@ -157,12 +158,12 @@ public class Organization {
         return "Organization{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", full_name='" + full_name + '\'' +
+                ", fullName='" + fullName + '\'' +
                 ", inn=" + inn +
                 ", kpp=" + kpp +
                 ", address='" + address + '\'' +
                 ", phone=" + phone +
-                ", is_active=" + is_active +
+                ", isActive=" + isActive +
                 '}';
     }
 }

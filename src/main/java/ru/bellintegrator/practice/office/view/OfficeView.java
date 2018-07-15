@@ -2,7 +2,9 @@ package ru.bellintegrator.practice.office.view;
 
 import io.swagger.annotations.ApiModelProperty;
 
-public class OfficeView {
+import java.util.List;
+
+public class OfficeView  {
 
     @ApiModelProperty(hidden = true)
     public String id;
@@ -13,9 +15,9 @@ public class OfficeView {
 
     public String phone;
 
-    public String org_id;
+    public String orgId;
 
-    public boolean is_active;
+    public boolean isActive;
 
     @Override
     public String toString() {
@@ -24,8 +26,8 @@ public class OfficeView {
                 ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
                 ", phone='" + phone + '\'' +
-                ", org_id='" + org_id + '\'' +
-                ", is_activee=" + is_active +
+                ", orgId='" + orgId + '\'' +
+                ", isActive=" + isActive +
                 '}';
     }
 }

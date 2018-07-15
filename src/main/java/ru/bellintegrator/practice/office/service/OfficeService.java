@@ -16,5 +16,5 @@ public interface OfficeService {
      * @param id
      * @return
      */
-    List<OfficeView> office(int id);
+    OfficeView office(Long id);
 }

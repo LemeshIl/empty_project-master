@@ -5,17 +5,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.bellintegrator.practice.organization.model.Organization;
-import ru.bellintegrator.practice.organization.service.OrganizationService;
-import ru.bellintegrator.practice.organization.view.OrganizationView;
 import ru.bellintegrator.practice.person.dao.PersonDao;
 import ru.bellintegrator.practice.user.model.User;
 import ru.bellintegrator.practice.user.view.UserView;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 /**
  * {@inheritDoc}
@@ -37,39 +31,44 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     @Transactional(readOnly = true)
-    public List<UserView> user(int id) {
+    public UserView user(Long id) {
 
-        List<User> all = new ArrayList<User>();
+        User userSar = new User();
+        userSar.setId(id);
+        userSar.setFirstName("Иван");
+        userSar.setSecondName("Сергеевич");
+        userSar.setMiddleName("Дягилев");
+        userSar.setPosition("диспетчер");
+        userSar.setPhone(253387);
+        userSar.setDocName("паспорт");
+        userSar.setDocNumber(552211);
+        userSar.setCitizenshipName("Россия");
+        userSar.setCitizenshipCode("5hg8");
+        userSar.setIdentified(true);
+        userSar.setOfficeId(id);
+        UserView view = mapUser().apply(userSar);
 
-
-
-        return all.stream()
-                .map(mapUser())
-                .collect(Collectors.toList());
+        return view;
     }
-
 
     private Function<User, UserView> mapUser() {
         return u -> {
 
             UserView view = new UserView();
 
-            view.id=String.valueOf(u.getId());
-            view.first_name=u.getFirst_name();
-            view.second_name=u.getSecond_name();
-            view.middle_name=u.getMiddle_name();
-            view.position=u.getPosition();
-            view.phone=String.valueOf(u.getPhone());
-            view.doc_name=u.getDoc_name();
-            view.doc_number=String.valueOf(u.getDoc_number());
-            view.doc_date=u.getDoc_date();
-            view.citizen_ship_name=u.getCitizen_ship_name();
-            view.citizen_ship_code=u.getCitizen_ship_code();
-            view.office_id=String.valueOf(u.getOffice_id());
-            //добить isIdentified
-
-
-            log.debug(view.toString());
+            view.id = String.valueOf(u.getId());
+            view.firstName = u.getFirstName();
+            view.secondName = u.getSecondName();
+            view.middleName = u.getMiddleName();
+            view.position = u.getPosition();
+            view.phone = String.valueOf(u.getPhone());
+            view.docName = u.getDocName();
+            view.docNumber = String.valueOf(u.getDocNumber());
+            view.docDate = u.getDocDate();
+            view.citizenshipName = u.getCitizenshipName();
+            view.citizenshipCode = u.getCitizenshipCode();
+            view.officeId = String.valueOf(u.getOfficeId());
+            view.isIdentified = u.isIdentified();
 
             return view;
         };

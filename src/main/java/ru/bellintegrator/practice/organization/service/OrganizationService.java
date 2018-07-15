@@ -1,22 +1,125 @@
 package ru.bellintegrator.practice.organization.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.practice.organization.model.Organization;
 import ru.bellintegrator.practice.organization.view.OrganizationView;
+import ru.bellintegrator.practice.person.dao.PersonDao;
+import ru.bellintegrator.practice.person.model.Person;
+import ru.bellintegrator.practice.person.service.PersonService;
 import ru.bellintegrator.practice.person.view.PersonView;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
- * Сервис
+ * {@inheritDoc}
  */
-public interface OrganizationService {
+@Service
+public class OrganizationService {
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
+    private final PersonDao dao;
+
+    @Autowired
+    public OrganizationService(PersonDao dao) {
+        this.dao = dao;
+    }
 
     /**
      * 2. api/organization/{id}
      * получить организацию
+     *
      * @param id
      * @return
      */
-    OrganizationView organization(Long id);
+    @Transactional(readOnly = true)
+    public OrganizationView organization(long id) {
+
+        Organization starOrg = getOrganization(id);
+        OrganizationView view = mapOrganization().apply(starOrg);
+
+        return view;
+    }
+
+    private Organization getOrganization(Long id) {
+        Organization starOrg = new Organization();
+        starOrg.setId(id);
+        starOrg.setName("starOrg");
+        starOrg.setInn("454555");
+        starOrg.setFullName("Саратовские авиалинии");
+        starOrg.setKpp("5600114");
+        starOrg.setAddress("г.Саратов, ул.Ленина,57");
+        starOrg.setPhone("884526558");
+        starOrg.setActive(true);
+
+        return starOrg;
+    }
+
+    /**
+     * возвращает организации
+     *
+     * @param view-данные которые передает пользователь и по которым фильтруем организации
+     * @return organizations-возвращаю организации
+     */
+    @Transactional
+    public List<OrganizationView> organizations(OrganizationView view) {
+        List<OrganizationView> organizations = new ArrayList<OrganizationView>();
+        for (int i = 0; i < 3; i++) {
+            Organization oneOrg = getOrganization((long) i);
+            OrganizationView view1 = mapOrganization().apply(oneOrg);
+            organizations.add(view1);
+        }
+
+        return organizations;
+    }
+
+    /**
+     *
+     * @param view
+     */
+
+    @Transactional
+    public void add(OrganizationView view) {
+        Organization organization = new Organization(view.name,view.fullName, view.inn,view.kpp,
+                view.address,view.phone,view.isActive);
+       // dao.save(organization);
+    }
+
+    @Transactional
+    public void update(OrganizationView view) {
+        Organization organization = getOrganization(Long.valueOf(view.id));
+        organization.setId(Long.valueOf(view.id));
+        organization.setName(view.name);
+        organization.setFullName(view.fullName);
+        organization.setInn(view.inn);
+        organization.setKpp(view.kpp);
+
+        // dao.save(organization);
+
+    }
+
+    private Function<Organization, OrganizationView> mapOrganization() {
+        return o -> {
+            OrganizationView view = new OrganizationView();
+
+            view.id = String.valueOf(o.getId());
+            view.name = o.getName();
+            view.inn = String.valueOf(o.getInn());
+            view.fullName = o.getFullName();
+            view.kpp = String.valueOf(o.getKpp());
+            view.address = o.getAddress();
+            view.phone = String.valueOf(o.getPhone());
+            view.isActive = o.isActive();
+
+            log.debug(view.toString());
+
+            return view;
+        };
+    }
 }

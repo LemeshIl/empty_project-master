@@ -4,14 +4,14 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class OrganizationView {
 
-    @ApiModelProperty(hidden = true)
+   // @ApiModelProperty(hidden = true)
     public String id;
 
     public String name;
 
     public String inn;
 
-    public String full_name;
+    public String fullName;
 
     public String kpp;
 
@@ -19,7 +19,7 @@ public class OrganizationView {
 
     public String phone;
 
-    public boolean is_active;
+    public boolean isActive;
 
 
     @Override
@@ -28,11 +28,11 @@ public class OrganizationView {
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", inn='" + inn + '\'' +
-                ", full_name='" + full_name + '\'' +
+                ", fullName='" + fullName + '\'' +
                 ", kpp='" + kpp + '\'' +
                 ", address='" + address + '\'' +
                 ", phone='" + phone + '\'' +
-                ", is_active=" + is_active +
+                ", isActive=" + isActive +
                 '}';
     }
 }

@@ -16,5 +16,5 @@ public interface UserService {
      * @param id
      * @return
      */
-    List<UserView> user(int id);
+    UserView user(Long id);
 }

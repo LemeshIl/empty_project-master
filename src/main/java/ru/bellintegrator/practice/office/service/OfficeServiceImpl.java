@@ -7,15 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.practice.office.model.Office;
 import ru.bellintegrator.practice.office.view.OfficeView;
-import ru.bellintegrator.practice.organization.model.Organization;
-import ru.bellintegrator.practice.organization.service.OrganizationService;
-import ru.bellintegrator.practice.organization.view.OrganizationView;
 import ru.bellintegrator.practice.person.dao.PersonDao;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 /**
  * {@inheritDoc}
@@ -37,17 +31,18 @@ public class OfficeServiceImpl implements OfficeService {
      */
     @Override
     @Transactional(readOnly = true)
-    public List<OfficeView> office(int id) {
+    public OfficeView office(Long id) {
 
-        List<Office> all = new ArrayList<Office>();
-        Office saratovOffice = new Office();
-        Office moscowOffice=new Office();
-        Office novgorodOffice=new Office();
+        Office sarOf = new Office();
+        sarOf.setId(id);
+        sarOf.setName("SarOf");
+        sarOf.setAddress("г.Саратов, ул Новая,17");
+        sarOf.setPhone(892565433);
+        sarOf.setOrgId(id);
+        sarOf.setActive(true);
+        OfficeView view = mapOffice().apply(sarOf);
 
-
-        return all.stream()
-                .map(mapOffice())
-                .collect(Collectors.toList());
+        return view;
     }
 
     private Function<Office, OfficeView> mapOffice() {
@@ -59,8 +54,8 @@ public class OfficeServiceImpl implements OfficeService {
             view.name = o.getName();
             view.address = o.getAddress();
             view.phone = String.valueOf(o.getPhone());
-            view.org_id = String.valueOf(o.getOrg_id());
-            view.is_active = o.isIs_active();
+            view.orgId = String.valueOf(o.getOrgId());
+            view.isActive = o.isActive();
 
             log.debug(view.toString());
 

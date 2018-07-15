@@ -7,46 +7,46 @@ public class UserView {
     @ApiModelProperty(hidden = true)
     public String id;
 
-    public String first_name;
+    public String firstName;
 
-    public String second_name;
+    public String secondName;
 
-    public String middle_name;
+    public String middleName;
 
     public String position;
 
     public String phone;
 
-    public String doc_name;
+    public String docName;
 
-    public String doc_number;
+    public String docNumber;
 
-    public String doc_date;
+    public String docDate;
 
-    public String citizen_ship_name;
+    public String citizenshipName;
 
-    public String citizen_ship_code;
+    public String citizenshipCode;
 
-    public String office_id;
+    public String officeId;
 
-    public  boolean is_identified;
+    public  boolean isIdentified;
 
     @Override
     public String toString() {
         return "UserView{" +
                 "id='" + id + '\'' +
-                ", first_name='" + first_name + '\'' +
-                ", second_name='" + second_name + '\'' +
-                ", middle_name='" + middle_name + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", secondName='" + secondName + '\'' +
+                ", middleName='" + middleName + '\'' +
                 ", position='" + position + '\'' +
                 ", phone='" + phone + '\'' +
-                ", doc_name='" + doc_name + '\'' +
-                ", doc_number='" + doc_number + '\'' +
-                ", doc_date='" + doc_date + '\'' +
-                ", citizen_ship_name='" + citizen_ship_name + '\'' +
-                ", citizen_ship_code='" + citizen_ship_code + '\'' +
-                ", office_id='" + office_id + '\'' +
-                ", is_identified=" + is_identified +
+                ", docName='" + docName + '\'' +
+                ", docNumber='" + docNumber + '\'' +
+                ", docDate='" + docDate + '\'' +
+                ", citizenshipName='" + citizenshipName + '\'' +
+                ", citizenshipCode='" + citizenshipCode + '\'' +
+                ", officeId='" + officeId + '\'' +
+                ", isIdentified=" + isIdentified +
                 '}';
     }
 }
