@@ -21,13 +21,13 @@ public class Organization {
     /**
      * Служебное поле hibernate
      */
-//    @Version
-//    private Integer version;
+    @Version
+    private Integer version;
 
     /**
      * Иия
      */
-    @Column(name = "first_name", length = 50, nullable = false)
+    @Column(name = "name", length = 50, nullable = false)
     private String name;
 
     /**
@@ -50,6 +50,7 @@ public class Organization {
      */
     @Column(name = "kpp", length = 50, nullable = false)
     private String kpp;
+
     /**
      * Адрес
      */
@@ -58,7 +59,6 @@ public class Organization {
 
     /**
      * телефон
-     * т.к. поле примитивного типа, оно не может быть nullable
      */
     @Column(name = "phone", length = 50, nullable = false)
     private String phone;
@@ -66,7 +66,7 @@ public class Organization {
     /**
      * Состояние
      */
-    @Column(name = "is_active", length = 10, nullable = false)
+    @Column(name = "is_active",  nullable = false)
     private boolean isActive;
 
 
@@ -88,6 +88,8 @@ public class Organization {
         this.phone = phone;
         this.isActive = isActive;
     }
+
+
 
     public Long getId() {
         return id;

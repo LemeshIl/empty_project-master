@@ -54,7 +54,7 @@ public class User {
      * т.к. поле примитивного типа, оно не может быть nullable
      */
     @Column(name = "phone", nullable = false)
-    private int phone;
+    private String phone;
 
     /**
      * имя документа
@@ -66,7 +66,7 @@ public class User {
      * номер документа
      */
     @Column(name = "docNumber", nullable = false)
-    private int docNumber;
+    private String docNumber;
 
     /**
      * дата рождения
@@ -101,14 +101,15 @@ public class User {
 
     /**
      * Конструктор для hibernate
+     
      */
     public User() {
 
     }
 
     public User(String firstName, String secondName, String middleName, String position,
-                int phone, String docName, int docNumber, String docDate, String citizenshipName,
-                String citizenshipCode, Long officeId, boolean isIdentified) {
+                String phone, String docName, String docNumber, String docDate,
+                String citizenshipName, String citizenshipCode, Long officeId, boolean isIdentified) {
         this.firstName = firstName;
         this.secondName = secondName;
         this.middleName = middleName;
@@ -121,6 +122,9 @@ public class User {
         this.citizenshipCode = citizenshipCode;
         this.officeId = officeId;
         this.isIdentified = isIdentified;
+    }
+
+    public User(String firstName, String secondName, String middleName, String position, String phone, String docName, String docDate, String citizenshipName, String citizenshipCode, Long aLong, boolean isIdentified) {
     }
 
     public Long getId() {
@@ -163,11 +167,11 @@ public class User {
         this.position = position;
     }
 
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
@@ -179,11 +183,11 @@ public class User {
         this.docName = docName;
     }
 
-    public int getDocNumber() {
+    public String getDocNumber() {
         return docNumber;
     }
 
-    public void setDocNumber(int docNumber) {
+    public void setDocNumber(String docNumber) {
         this.docNumber = docNumber;
     }
 

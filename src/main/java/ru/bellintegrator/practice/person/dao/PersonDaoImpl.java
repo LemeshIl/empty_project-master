@@ -37,7 +37,7 @@ public class PersonDaoImpl implements PersonDao {
      * {@inheritDoc}
      */
     @Override
-    public Person loadById(Long id) {
+    public Person  loadById(Long id) {
         return em.find(Person.class, id);
     }
 

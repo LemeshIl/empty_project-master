@@ -1,5 +1,6 @@
 package ru.bellintegrator.practice.organization.dao;
 
+import ru.bellintegrator.practice.organization.model.Organization;
 import ru.bellintegrator.practice.person.model.Person;
 
 import java.util.List;
@@ -8,12 +9,12 @@ import java.util.List;
  * DAO для работы с Organization
  */
 public interface OrganizationDao {
-    /**
-     * Получить все объекты Person
+        /**
+     * Получить все объекты Organization по параметрам
      *
      * @return
      */
-    List<Person> all();
+    List<Organization> organizations(String name);
 
     /**
      * Получить Organization по идентификатору
@@ -21,20 +22,20 @@ public interface OrganizationDao {
      * @param id
      * @return
      */
-    Person loadById(Long id);
+    Organization loadById(Long id);
 
     /**
-     * Получить Person по имени
+     * Обновить Organization
      *
-     * @param name
+     * @param organization
      * @return
      */
-    Person loadByName(String name);
+    void update(Organization organization);
 
     /**
-     * Сохранить Person
+     * Сохранить Organization
      *
-     * @param person
+     * @param organization
      */
-    void save(Person person);
+    void save(Organization organization);
 }

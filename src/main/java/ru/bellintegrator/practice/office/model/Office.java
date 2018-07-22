@@ -22,7 +22,7 @@ public class Office {
      * Служебное поле hibernate
      */
     //@Version
-   // private Integer version;
+    // private Integer version;
 
     /**
      * Имя
@@ -33,14 +33,14 @@ public class Office {
     /**
      * Адрес
      */
-    @Column(name = "address",length = 100, nullable = false)
+    @Column(name = "address", length = 100, nullable = false)
     private String address;
 
     /**
      * телефон
      */
-    @Column(name = "phone", nullable = false)
-    private int phone;
+    @Column(name = "phone", length = 100, nullable = false)
+    private String phone;
 
     /**
      * idOrganization
@@ -55,7 +55,6 @@ public class Office {
     private boolean isActive;
 
 
-
     /**
      * Конструктор для hibernate
      */
@@ -63,7 +62,7 @@ public class Office {
 
     }
 
-    public Office(String name, String address, int phone, Long orgIid, boolean isActive) {
+    public Office(String name, String address, String phone, Long orgId, boolean isActive) {
         this.name = name;
         this.address = address;
         this.phone = phone;
@@ -95,11 +94,11 @@ public class Office {
         this.address = address;
     }
 
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
@@ -125,7 +124,7 @@ public class Office {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
-                ", phone=" + phone +
+                ", phone='" + phone + '\'' +
                 ", orgId=" + orgId +
                 ", isActive=" + isActive +
                 '}';

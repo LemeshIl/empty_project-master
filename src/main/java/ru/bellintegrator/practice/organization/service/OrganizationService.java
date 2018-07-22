@@ -5,7 +5,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.bellintegrator.practice.organization.dao.OrganizationDao;
 import ru.bellintegrator.practice.organization.model.Organization;
+import ru.bellintegrator.practice.organization.view.OrganizationShortView;
 import ru.bellintegrator.practice.organization.view.OrganizationView;
 import ru.bellintegrator.practice.person.dao.PersonDao;
 import ru.bellintegrator.practice.person.model.Person;
@@ -24,10 +26,10 @@ import java.util.stream.Collectors;
 public class OrganizationService {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
-    private final PersonDao dao;
+    private final OrganizationDao dao;
 
     @Autowired
-    public OrganizationService(PersonDao dao) {
+    public OrganizationService(OrganizationDao dao) {
         this.dao = dao;
     }
 
@@ -40,10 +42,8 @@ public class OrganizationService {
      */
     @Transactional(readOnly = true)
     public OrganizationView organization(long id) {
-
-        Organization starOrg = getOrganization(id);
+        Organization starOrg = dao.loadById(id);
         OrganizationView view = mapOrganization().apply(starOrg);
-
         return view;
     }
 
@@ -57,40 +57,42 @@ public class OrganizationService {
         starOrg.setAddress("г.Саратов, ул.Ленина,57");
         starOrg.setPhone("884526558");
         starOrg.setActive(true);
-
         return starOrg;
     }
 
     /**
+     * 1. api/organization/list
      * возвращает организации
      *
      * @param view-данные которые передает пользователь и по которым фильтруем организации
      * @return organizations-возвращаю организации
      */
     @Transactional
-    public List<OrganizationView> organizations(OrganizationView view) {
-        List<OrganizationView> organizations = new ArrayList<OrganizationView>();
-        for (int i = 0; i < 3; i++) {
-            Organization oneOrg = getOrganization((long) i);
-            OrganizationView view1 = mapOrganization().apply(oneOrg);
-            organizations.add(view1);
-        }
+    public List<OrganizationShortView> organizations(OrganizationShortView view) {
+        List<Organization> organizations = dao.organizations(view.name);
 
-        return organizations;
+        return organizations.stream()
+                .map(mapShortOrganization())
+                .collect(Collectors.toList());
     }
 
     /**
+     * 4. api/organization/save
      *
      * @param view
      */
-
     @Transactional
     public void add(OrganizationView view) {
-        Organization organization = new Organization(view.name,view.fullName, view.inn,view.kpp,
-                view.address,view.phone,view.isActive);
-       // dao.save(organization);
+        Organization organization = new Organization(view.name, view.fullName, view.inn, view.kpp,
+                view.address, view.phone, view.isActive);
+        dao.save(organization);
     }
 
+    /**
+     * 3. api/organization/update
+     *
+     * @param view
+     */
     @Transactional
     public void update(OrganizationView view) {
         Organization organization = getOrganization(Long.valueOf(view.id));
@@ -99,9 +101,7 @@ public class OrganizationService {
         organization.setFullName(view.fullName);
         organization.setInn(view.inn);
         organization.setKpp(view.kpp);
-
-        // dao.save(organization);
-
+        dao.save(organization);
     }
 
     private Function<Organization, OrganizationView> mapOrganization() {
@@ -115,6 +115,21 @@ public class OrganizationService {
             view.kpp = String.valueOf(o.getKpp());
             view.address = o.getAddress();
             view.phone = String.valueOf(o.getPhone());
+            view.isActive = o.isActive();
+
+            log.debug(view.toString());
+
+            return view;
+        };
+    }
+
+    private Function<Organization, OrganizationShortView> mapShortOrganization() {
+        return o -> {
+
+            OrganizationShortView view = new OrganizationShortView();
+            view.id = String.valueOf(o.getId());
+            view.name = o.getName();
+            view.inn = String.valueOf(o.getInn());
             view.isActive = o.isActive();
 
             log.debug(view.toString());
