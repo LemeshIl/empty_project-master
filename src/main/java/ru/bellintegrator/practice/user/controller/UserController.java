@@ -5,9 +5,6 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.bellintegrator.practice.organization.service.OrganizationService;
-import ru.bellintegrator.practice.organization.view.OrganizationView;
-import ru.bellintegrator.practice.user.model.User;
 import ru.bellintegrator.practice.user.service.UserService;
 import ru.bellintegrator.practice.user.view.UserView;
 

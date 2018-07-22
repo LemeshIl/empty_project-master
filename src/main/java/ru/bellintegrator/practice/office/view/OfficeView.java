@@ -2,8 +2,6 @@ package ru.bellintegrator.practice.office.view;
 
 import io.swagger.annotations.ApiModelProperty;
 
-import java.util.List;
-
 public class OfficeView  {
 
     @ApiModelProperty(hidden = true)

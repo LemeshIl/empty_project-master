@@ -1,20 +1,17 @@
 package ru.bellintegrator.practice.user.model;
 
-import ru.bellintegrator.practice.house.model.House;
-
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Пользователь
  */
 @Entity
-@Table(name = "User")
+@Table(name = "User_Bell")
 public class User {
 
     @Id
-    @GeneratedValue
+    @SequenceGenerator(name = "SEQ_USER_BELL" , sequenceName = "SEQ_USER_BELL", allocationSize = 1)
+    @GeneratedValue(generator="SEQ_USER_BELL", strategy = GenerationType.SEQUENCE)
     @Column(name = "Id")
     private Long id;
 
