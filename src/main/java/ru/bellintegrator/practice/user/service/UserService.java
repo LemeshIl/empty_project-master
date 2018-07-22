@@ -2,12 +2,8 @@ package ru.bellintegrator.practice.user.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.bellintegrator.practice.organization.dao.OrganizationDao;
-import ru.bellintegrator.practice.organization.model.Organization;
-import ru.bellintegrator.practice.organization.view.OrganizationView;
 import ru.bellintegrator.practice.user.model.User;
 import ru.bellintegrator.practice.user.view.UserView;
 
@@ -31,7 +27,7 @@ public class UserService {
 
     /**
      * 10. api/user/{id}
-     * получить юзера
+     * получить юзера по id
      * @param id
      * @return
      */
@@ -67,7 +63,7 @@ public class UserService {
 
     /**
      * 9. api/user/list
-     *
+     * получить юзеров
      * @param view-данные которые передает пользователь и по которым фильтруем юзеров
      * @return users-возвращаю юзеров
      */
@@ -88,7 +84,7 @@ public class UserService {
 
     /**
      * 12. api/user/save
-     *
+     * сохранить юзера
      * @param view
      */
 
@@ -98,9 +94,13 @@ public class UserService {
                 view.phone, view.docName, view.docDate, view.citizenshipName, view.citizenshipCode,
                Long.valueOf(view.officeId), view.isIdentified);
         // dao.save(organization);
-
     }
 
+    /**
+     *11. api/user/update
+     * Обновить юзера
+     * @param view
+     */
     @Transactional
     public void update(UserView view) {
         User user = getUser(Long.valueOf(view.id));

@@ -2,14 +2,10 @@ package ru.bellintegrator.practice.office.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.practice.office.model.Office;
 import ru.bellintegrator.practice.office.view.OfficeView;
-import ru.bellintegrator.practice.organization.dao.OrganizationDao;
-import ru.bellintegrator.practice.organization.model.Organization;
-import ru.bellintegrator.practice.organization.view.OrganizationView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,8 +26,8 @@ public class OfficeService {
 //    }
 
     /**
-     * 2. (6.) api/office/{id}
-     * получить офис
+     * 6. api/office/{id}
+     * получить офис по id
      *
      * @param id
      * @return
@@ -59,6 +55,7 @@ public class OfficeService {
     }
 
     /**
+     * 5.api/office/list
      * возвращает офисы
      *
      * @param view-данные которые передает пользователь и по которым фильтруем организации
@@ -72,24 +69,28 @@ public class OfficeService {
             OfficeView view1 = mapOffice().apply(oneOf);
             offices.add(view1);
         }
-
         return offices;
     }
 
     /**
-     * (save)
+     * 8. api/office/save
+     * сохранить офис
      *
      * @param view
      */
-
     @Transactional
     public void add(OfficeView view) {
         Office office = new Office(view.name, view.address, view.phone, Long.valueOf(view.orgId), view.isActive);
 
-
         // dao.save(organization);
     }
 
+    /**
+     * 7. api/office/update
+     * Обновить офис
+     *
+     * @param view
+     */
     @Transactional
     public void update(OfficeView view) {
         Office office = getOffice(Long.valueOf(view.id));

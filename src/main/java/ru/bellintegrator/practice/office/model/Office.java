@@ -1,10 +1,6 @@
 package ru.bellintegrator.practice.office.model;
 
-import ru.bellintegrator.practice.house.model.House;
-
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Oфис
@@ -14,15 +10,10 @@ import java.util.Set;
 public class Office {
 
     @Id
-    @GeneratedValue
+    @SequenceGenerator(name = "SEQ_OFFICE" , sequenceName = "SEQ_OFFICE", allocationSize = 1)
+    @GeneratedValue(generator="SEQ_OFFICE", strategy = GenerationType.SEQUENCE)
     @Column(name = "Id")
     private Long id;
-
-    /**
-     * Служебное поле hibernate
-     */
-    //@Version
-    // private Integer version;
 
     /**
      * Имя

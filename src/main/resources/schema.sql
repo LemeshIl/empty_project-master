@@ -20,14 +20,13 @@ CREATE TABLE IF NOT EXISTS Person_House (
 
 CREATE TABLE IF NOT EXISTS Organization (
     id         INTEGER  PRIMARY KEY AUTO_INCREMENT,
-    version    INTEGER NOT NULL,
     name       VARCHAR(50),
     full_name  VARCHAR(50),
     inn        VARCHAR(50),
     kpp        VARCHAR(50),
     address    VARCHAR(50),
     phone      VARCHAR(50),
-    is_Active   VARCHAR(1) NOT NULL
+    is_Active    NUMBER(1) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS Office (
@@ -36,7 +35,7 @@ CREATE TABLE IF NOT EXISTS Office (
     name       VARCHAR(50),
     address    VARCHAR(50),
     phone      VARCHAR(50),
-    is_Active   VARCHAR(1) NOT NULL
+    is_Active   NUMBER (1) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS User_Bell (
@@ -52,7 +51,7 @@ CREATE TABLE IF NOT EXISTS User_Bell (
      citizenship_Name   VARCHAR(50),
      citizenship_Code   VARCHAR(50),
      office_Id          INTEGER NOT NULL,
-     is_Identified      VARCHAR(1) NOT NULL
+     is_Identified       NUMBER(1) NOT NULL
 );
 
 CREATE INDEX IX_Person_House_Id ON Person_House (house_id);
@@ -60,3 +59,7 @@ ALTER TABLE Person_House ADD FOREIGN KEY (house_id) REFERENCES House(id);
 
 CREATE INDEX IX_House_Person_Id ON Person_House (person_id);
 ALTER TABLE Person_House ADD FOREIGN KEY (person_id) REFERENCES Person(id);
+
+CREATE SEQUENCE SEQ_OFFICE MINVALUE 1 INCREMENT BY 1;
+
+CREATE SEQUENCE SEQ_ORGANIZATION MINVALUE 1 INCREMENT BY 1;

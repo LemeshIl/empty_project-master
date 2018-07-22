@@ -2,12 +2,7 @@ package ru.bellintegrator.practice.house.model;
 
 import ru.bellintegrator.practice.person.model.Person;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.Version;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 

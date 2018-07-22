@@ -1,10 +1,6 @@
 package ru.bellintegrator.practice.organization.model;
 
-import ru.bellintegrator.practice.house.model.House;
-
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Организация
@@ -14,15 +10,10 @@ import java.util.Set;
 public class Organization {
 
     @Id
-    @GeneratedValue
+    @SequenceGenerator(name = "SEQ_ORGANIZATION" , sequenceName = "SEQ_ORGANIZATION", allocationSize = 1)
+    @GeneratedValue(generator="SEQ_ORGANIZATION", strategy = GenerationType.SEQUENCE)
     @Column(name = "Id")
     private Long id;
-
-    /**
-     * Служебное поле hibernate
-     */
-    @Version
-    private Integer version;
 
     /**
      * Иия

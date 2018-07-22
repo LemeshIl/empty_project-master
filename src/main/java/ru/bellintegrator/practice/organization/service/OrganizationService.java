@@ -5,16 +5,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.bellintegrator.practice.organization.dao.OrganizationDao;
 import ru.bellintegrator.practice.organization.model.Organization;
 import ru.bellintegrator.practice.organization.view.OrganizationShortView;
 import ru.bellintegrator.practice.organization.view.OrganizationView;
-import ru.bellintegrator.practice.person.dao.PersonDao;
-import ru.bellintegrator.practice.person.model.Person;
-import ru.bellintegrator.practice.person.service.PersonService;
-import ru.bellintegrator.practice.person.view.PersonView;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -35,7 +29,7 @@ public class OrganizationService {
 
     /**
      * 2. api/organization/{id}
-     * получить организацию
+     * получить организацию по id
      *
      * @param id
      * @return
@@ -62,7 +56,7 @@ public class OrganizationService {
 
     /**
      * 1. api/organization/list
-     * возвращает организации
+     * возвращает организации по name
      *
      * @param view-данные которые передает пользователь и по которым фильтруем организации
      * @return organizations-возвращаю организации
@@ -78,6 +72,7 @@ public class OrganizationService {
 
     /**
      * 4. api/organization/save
+     * сохраняет организацию
      *
      * @param view
      */
@@ -90,18 +85,16 @@ public class OrganizationService {
 
     /**
      * 3. api/organization/update
+     * Обновить организацию
      *
      * @param view
      */
     @Transactional
     public void update(OrganizationView view) {
-        Organization organization = getOrganization(Long.valueOf(view.id));
+        Organization organization = new Organization(view.name, view.fullName, view.inn, view.kpp,
+                view.address, view.phone, view.isActive);
         organization.setId(Long.valueOf(view.id));
-        organization.setName(view.name);
-        organization.setFullName(view.fullName);
-        organization.setInn(view.inn);
-        organization.setKpp(view.kpp);
-        dao.save(organization);
+        dao.update(organization);
     }
 
     private Function<Organization, OrganizationView> mapOrganization() {
