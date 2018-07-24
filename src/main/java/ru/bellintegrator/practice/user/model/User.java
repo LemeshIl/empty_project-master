@@ -10,17 +10,10 @@ import javax.persistence.*;
 public class User {
 
     @Id
-    @SequenceGenerator(name = "SEQ_USER_BELL" , sequenceName = "SEQ_USER_BELL", allocationSize = 1)
-    @GeneratedValue(generator="SEQ_USER_BELL", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "SEQ_USER_BELL", sequenceName = "SEQ_USER_BELL", allocationSize = 1)
+    @GeneratedValue(generator = "SEQ_USER_BELL", strategy = GenerationType.SEQUENCE)
     @Column(name = "Id")
     private Long id;
-
-    /**
-     * Служебное поле hibernate
-     */
-//    @Version
-//    private Integer version;
-
 
     /**
      * Первое имя
@@ -48,7 +41,6 @@ public class User {
 
     /**
      * телефон
-     * т.к. поле примитивного типа, оно не может быть nullable
      */
     @Column(name = "phone", nullable = false)
     private String phone;
@@ -66,19 +58,19 @@ public class User {
     private String docNumber;
 
     /**
-     * дата рождения
+     * дата создания документа
      */
     @Column(name = "docDate", length = 50, nullable = false)
     private String docDate;
 
     /**
-     * citizenshipName
+     * гражданство
      */
     @Column(name = "citizenshipName", length = 50, nullable = false)
     private String citizenshipName;
 
     /**
-     * citizenshipCode
+     * код города
      */
     @Column(name = "citizenshipCode", length = 50, nullable = false)
     private String citizenshipCode;
@@ -86,7 +78,7 @@ public class User {
     /**
      * id офиса
      */
-    @Column(name = "officeId", nullable = false)
+    @Column(name = "officeId", length = 50, nullable = false)
     private Long officeId;
 
     /**
@@ -95,10 +87,8 @@ public class User {
     @Column(name = "isIdentified", length = 10, nullable = false)
     private boolean isIdentified;
 
-
     /**
      * Конструктор для hibernate
-     
      */
     public User() {
 
@@ -119,9 +109,6 @@ public class User {
         this.citizenshipCode = citizenshipCode;
         this.officeId = officeId;
         this.isIdentified = isIdentified;
-    }
-
-    public User(String firstName, String secondName, String middleName, String position, String phone, String docName, String docDate, String citizenshipName, String citizenshipCode, Long aLong, boolean isIdentified) {
     }
 
     public Long getId() {

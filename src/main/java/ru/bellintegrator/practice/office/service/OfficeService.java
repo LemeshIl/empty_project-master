@@ -2,14 +2,17 @@ package ru.bellintegrator.practice.office.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.bellintegrator.practice.office.dao.OfficeDao;
 import ru.bellintegrator.practice.office.model.Office;
 import ru.bellintegrator.practice.office.view.OfficeView;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * {@inheritDoc}
@@ -17,26 +20,23 @@ import java.util.function.Function;
 @Service
 public class OfficeService {
     private final Logger log = LoggerFactory.getLogger(getClass());
-//
-//    private final OfficeDao dao;
-//
-//    @Autowired
-//    public OfficeService(OfficeDao dao) {
-//        this.dao = dao;
-//    }
+
+    private final OfficeDao dao;
+
+    @Autowired
+    public OfficeService(OfficeDao dao) {
+        this.dao = dao;
+    }
 
     /**
      * 6. api/office/{id}
      * получить офис по id
-     *
      * @param id
      * @return
      */
     @Transactional(readOnly = true)
     public OfficeView office(long id) {
-
-        Office starOf = getOffice(id);
-        //Organization starOrg = dao.loadById(id);
+        Office starOf = dao.loadById(id);
         OfficeView view = mapOffice().apply(starOf);
 
         return view;
@@ -63,13 +63,11 @@ public class OfficeService {
      */
     @Transactional
     public List<OfficeView> offices(OfficeView view) {
-        List<OfficeView> offices = new ArrayList<OfficeView>();
-        for (int i = 0; i < 3; i++) {
-            Office oneOf = getOffice((long) i);
-            OfficeView view1 = mapOffice().apply(oneOf);
-            offices.add(view1);
-        }
-        return offices;
+        List<Office> offices = dao.offices(Long.valueOf(view .orgId));
+
+        return offices.stream()
+                .map(mapOffice())
+                .collect(Collectors.toList());
     }
 
     /**
@@ -82,7 +80,7 @@ public class OfficeService {
     public void add(OfficeView view) {
         Office office = new Office(view.name, view.address, view.phone, Long.valueOf(view.orgId), view.isActive);
 
-        // dao.save(organization);
+        dao.save(office);
     }
 
     /**
@@ -93,14 +91,16 @@ public class OfficeService {
      */
     @Transactional
     public void update(OfficeView view) {
-        Office office = getOffice(Long.valueOf(view.id));
+        Office office = new Office(view.name, view.address, view.phone,
+                Long.valueOf(view.orgId), view.isActive);
+        //Office office = getOffice(Long.valueOf(view.id));
         office.setId(Long.valueOf(view.id));
-        office.setName(view.name);
-        office.setAddress(view.address);
-        office.setPhone(view.phone);
-        office.setOrgId(Long.valueOf(view.orgId));
+//        office.setName(view.name);
+//        office.setAddress(view.address);
+//        office.setPhone(view.phone);
+//        office.setOrgId(Long.valueOf(view.orgId));
 
-        // dao.save(office);
+        dao.update(office);
     }
 
     private Function<Office, OfficeView> mapOffice() {
@@ -119,4 +119,6 @@ public class OfficeService {
             return view;
         };
     }
+
+
 }

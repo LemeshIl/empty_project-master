@@ -17,25 +17,25 @@ INSERT INTO ORGANIZATION (ID, NAME, FULL_NAME, INN, KPP, ADDRESS, PHONE, IS_ACTI
 INSERT INTO ORGANIZATION (ID, NAME, FULL_NAME, INN, KPP, ADDRESS, PHONE, IS_ACTIVE) VALUES (SEQ_ORGANIZATION.nextval, 'teploTek', 'Комерческая фирма', '224466', '5554441', 'г. Орел, ул. Победы,2', '888666521', 1);
 
 INSERT INTO OFFICE (ID, ORG_ID, NAME, ADDRESS, PHONE, IS_ACTIVE) VALUES (SEQ_OFFICE.nextval, '1', 'SarOfficeOne', 'г. Саратов ул. Пушкина, 51',
-'256333', '1');
+'256333', 1);
 
 INSERT INTO OFFICE (ID, ORG_ID, NAME, ADDRESS, PHONE, IS_ACTIVE) VALUES (SEQ_OFFICE.nextval, '1', 'SarOfficeTwo', 'г. Саратов ул. Кирова, 66',
-'256111', '1');
+'256111', 1);
 
 INSERT INTO OFFICE (ID, ORG_ID, NAME, ADDRESS, PHONE, IS_ACTIVE) VALUES (SEQ_OFFICE.nextval, '2', 'MosOffice', 'г. Москва ул. Верхняя, 66',
-'205555', '1');
+'205555', 1);
 
 INSERT INTO OFFICE (ID, ORG_ID, NAME, ADDRESS, PHONE, IS_ACTIVE) VALUES (SEQ_OFFICE.nextval, '2', 'MosOfficeTwo', 'г. Москва ул. Попова, 74',
-'555656', '1');
+'555656', 1);
 
 INSERT INTO OFFICE (ID, ORG_ID, NAME, ADDRESS, PHONE, IS_ACTIVE) VALUES (SEQ_OFFICE.nextval, '2', 'MosOfficeThree', 'г. Москва ул. Рахова, 20',
-'474747', '1');
+'474747', 1);
 
 INSERT INTO OFFICE (ID, ORG_ID, NAME, ADDRESS, PHONE, IS_ACTIVE) VALUES (SEQ_OFFICE.nextval, '3', 'OrOfficeOne', 'г. Орел ул. Зимняя, 26',
-'222111', '1');
+'222111', 1);
 
 INSERT INTO OFFICE (ID, ORG_ID, NAME, ADDRESS, PHONE, IS_ACTIVE) VALUES (SEQ_OFFICE.nextval, '3', 'OrOfficeTwo', 'г. Орел ул. Михайлова, 7',
-'777666', '1');
+'777666', 1);
 
 INSERT INTO USER_BELL (ID, FIRST_NAME, SECOND_NAME, MIDDLE_NAME, POSITION, PHONE, DOC_NAME, DOC_NUMBER, DOC_DATE,
 CITIZENSHIP_NAME, CITIZENSHIP_CODE, OFFICE_ID, IS_IDENTIFIED) VALUES (SEQ_USER_BELL.nextval, 'Сергей', 'Иванович', 'Сочнев', 'менеджер', '999999',

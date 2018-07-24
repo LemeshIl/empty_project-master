@@ -2,14 +2,18 @@ package ru.bellintegrator.practice.user.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.bellintegrator.practice.user.dao.UserDao;
 import ru.bellintegrator.practice.user.model.User;
 import ru.bellintegrator.practice.user.view.UserView;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 /**
  * {@inheritDoc}
@@ -18,12 +22,12 @@ import java.util.function.Function;
 public class UserService {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
-    // private final UserDao dao;
+    private final UserDao dao;
 
-//    @Autowired
-//    public UserService(UserDao dao) {
-//        this.dao = dao;
-//    }
+    @Autowired
+    public UserService(UserDao dao) {
+        this.dao = dao;
+    }
 
     /**
      * 10. api/user/{id}
@@ -33,9 +37,7 @@ public class UserService {
      */
     @Transactional(readOnly = true)
     public UserView user(long id) {
-
-        User starUs = getUser(id);
-        //Organization starOrg = dao.loadById(id);
+        User starUs = dao.loadById(id);
         UserView view = mapUser().apply(starUs);
 
         return view;
@@ -60,7 +62,6 @@ public class UserService {
         return starUs;
     }
 
-
     /**
      * 9. api/user/list
      * получить юзеров
@@ -69,17 +70,11 @@ public class UserService {
      */
     @Transactional
     public List<UserView> users(UserView view) {
-        List<UserView> users = new ArrayList<UserView>();
-        for (int i = 0; i < 3; i++) {
-            User oneUs = getUser((long) i);
-            UserView view1 = mapUser().apply(oneUs);
-            users.add(view1);
-        }
+        List<User> users = dao.users(view.firstName);
 
-        return users;
-    }
-
-    public UserService() {
+        return users.stream()
+                .map(mapUser())
+                .collect(Collectors.toList());
     }
 
     /**
@@ -87,55 +82,46 @@ public class UserService {
      * сохранить юзера
      * @param view
      */
-
     @Transactional
     public void add(UserView view) {
         User user = new User(view.firstName, view.secondName, view.middleName, view.position,
-                view.phone, view.docName, view.docDate, view.citizenshipName, view.citizenshipCode,
-               Long.valueOf(view.officeId), view.isIdentified);
-        // dao.save(organization);
+                view.phone,view.docNumber, view.docName, view.docDate, view.citizenshipName, view.citizenshipCode,
+                Long.valueOf(view.officeId), view.isIdentified);
+        dao.save(user);
     }
 
     /**
-     *11. api/user/update
+     * 11. api/user/update
      * Обновить юзера
      * @param view
      */
     @Transactional
     public void update(UserView view) {
-        User user = getUser(Long.valueOf(view.id));
+        User user = new User(view.firstName, view.secondName, view.middleName, view.position,
+                view.phone, view.docName,view.docNumber, view.docDate, view.citizenshipName, view.citizenshipCode,
+                Long.valueOf(view.officeId), view.isIdentified);
         user.setId(Long.valueOf(view.id));
-        user.setFirstName(view.firstName);
-        user.setSecondName(view.secondName);
-        user.setMiddleName(view.middleName);
-        user.setPosition(view.position);
-        user.setPhone(view.phone);
-        user.setDocName(view.docName);
-        user.setDocDate(view.docDate);
-        user.setCitizenshipName(view.citizenshipName);
-        user.setCitizenshipCode(view.citizenshipCode);
-        user.setOfficeId(Long.valueOf(view.officeId));
 
-        // dao.save(organization);
+        dao.update(user);
     }
 
     private Function<User, UserView> mapUser() {
-        return v -> {
+        return u -> {
             UserView view = new UserView();
 
-            view.id = String.valueOf(v.getId());
-            view.firstName = String.valueOf(v.getFirstName());
-            view.secondName = v.getSecondName();
-            view.middleName = v.getMiddleName();
-            view.position = v.getPosition();
-            view.phone = v.getPhone();
-            view.docName = v.getDocName();
-            view.docNumber = v.getDocNumber();
-            view.docDate = v.getDocDate();
-            view.citizenshipName = v.getCitizenshipName();
-            view.citizenshipCode = v.getCitizenshipCode();
-            view.officeId = String.valueOf(v.getOfficeId());
-            view.isIdentified = v.isIdentified();
+            view.id = String.valueOf(u.getId());
+            view.firstName = String.valueOf(u.getFirstName());
+            view.secondName = u.getSecondName();
+            view.middleName = u.getMiddleName();
+            view.position = u.getPosition();
+            view.phone = u.getPhone();
+            view.docName = u.getDocName();
+            view.docNumber = u.getDocNumber();
+            view.docDate = u.getDocDate();
+            view.citizenshipName = u.getCitizenshipName();
+            view.citizenshipCode = u.getCitizenshipCode();
+            view.officeId = String.valueOf(u.getOfficeId());
+            view.isIdentified = u.isIdentified();
 
             log.debug(view.toString());
 

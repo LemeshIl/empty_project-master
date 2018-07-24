@@ -10,8 +10,8 @@ import javax.persistence.*;
 public class Office {
 
     @Id
-    @SequenceGenerator(name = "SEQ_OFFICE" , sequenceName = "SEQ_OFFICE", allocationSize = 1)
-    @GeneratedValue(generator="SEQ_OFFICE", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "SEQ_OFFICE", sequenceName = "SEQ_OFFICE", allocationSize = 1)
+    @GeneratedValue(generator = "SEQ_OFFICE", strategy = GenerationType.SEQUENCE)
     @Column(name = "Id")
     private Long id;
 
@@ -34,9 +34,9 @@ public class Office {
     private String phone;
 
     /**
-     * idOrganization
+     * id Организации
      */
-    @Column(name = "orgIid", nullable = false)
+    @Column(name = "orgId", nullable = false)
     private Long orgId;
 
     /**
@@ -44,7 +44,6 @@ public class Office {
      */
     @Column(name = "isActive", length = 10, nullable = false)
     private boolean isActive;
-
 
     /**
      * Конструктор для hibernate

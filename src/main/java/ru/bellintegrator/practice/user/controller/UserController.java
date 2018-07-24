@@ -72,6 +72,6 @@ public class UserController {
             @ApiResponse(code = 500, message = "Failure")})
     @PostMapping("/user/save")
     public void addUser(@RequestBody UserView user) {
-        userService.add(user);
+        userService. add(user);
     }
 }

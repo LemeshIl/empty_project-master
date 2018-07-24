@@ -31,7 +31,6 @@ public class OrganizationService {
     /**
      * 2. api/organization/{id}
      * получить организацию по id
-     *
      * @param id
      * @return
      */
@@ -39,6 +38,7 @@ public class OrganizationService {
     public OrganizationView organization(long id) {
         Organization starOrg = dao.loadById(id);
         OrganizationView view = mapOrganization().apply(starOrg);
+
         return view;
     }
 
@@ -52,6 +52,7 @@ public class OrganizationService {
         starOrg.setAddress("г.Саратов, ул.Ленина,57");
         starOrg.setPhone("884526558");
         starOrg.setActive(true);
+
         return starOrg;
     }
 

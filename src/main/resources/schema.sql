@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS Organization (
 
 CREATE TABLE IF NOT EXISTS Office (
     id         INTEGER  PRIMARY KEY AUTO_INCREMENT,
-    org_Id      INTEGER NOT NULL,
+    org_Id      VARCHAR(50),
     name       VARCHAR(50),
     address    VARCHAR(50),
     phone      VARCHAR(50),
@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS User_Bell (
      doc_Date           VARCHAR(50),
      citizenship_Name   VARCHAR(50),
      citizenship_Code   VARCHAR(50),
-     office_Id          INTEGER NOT NULL,
+     office_Id           VARCHAR(50),
      is_Identified       NUMBER(1) NOT NULL
 );
 

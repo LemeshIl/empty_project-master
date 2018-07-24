@@ -30,7 +30,8 @@ public class OrganizationDao {
      * {@inheritDoc}
      */
     public List<Organization> organizations(String name) {
-        TypedQuery<Organization> query = em.createQuery("SELECT o FROM Organization o WHERE o.name=:name", Organization.class).setParameter("name", name);
+        TypedQuery<Organization> query = em.createQuery("SELECT o FROM Organization o WHERE o.name=:name",
+                Organization.class).setParameter("name", name);
         return query.getResultList();
     }
 
