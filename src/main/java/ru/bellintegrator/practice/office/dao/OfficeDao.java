@@ -1,75 +1,44 @@
 package ru.bellintegrator.practice.office.dao;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import ru.bellintegrator.practice.office.model.Office;
 import ru.bellintegrator.practice.organization.model.Organization;
 
-import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 import java.util.List;
 
 /**
- * {@inheritDoc}
+ * DAO для работы с Organization
  */
-@Repository
-public class OfficeDao {
-
-    private final EntityManager em;
-
-    @Autowired
-    public OfficeDao(EntityManager em) {
-        this.em = em;
-    }
-
+public interface OfficeDao {
     /**
-     * 5. api/office/list
-     * получить список offices по orgId
-     * {@inheritDoc}
+     * 5.api/office/list
+     * получить список офисов по orgId
+     *
+     * @return {@Office}
      */
-    public List<Office> offices(Long orgId) {
-        TypedQuery<Office> query = em.createQuery("SELECT o FROM Office o WHERE o.orgId=:orgId", Office.class)
-                .setParameter("orgId", orgId);
-        return query.getResultList();
-    }
+    List<Office> offices(Long orgId);
 
     /**
      * 6. api/office/{id}
-     * Получить office по id
-     * {@inheritDoc}
+     * получить офис по id
+     *
+     * @param id
+     * @return
      */
-    public Office loadById(Long id) {
-        return em.find(Office.class, id);
-    }
+    Office loadById(Long id);
 
     /**
      * 7. api/office/update
-     * Обновить office
-     * {@inheritDoc}
+     * обновить офис
+     *
+     * @param office
      */
-    public void update(Office office) {
-        em.merge(office);
-    }
+     void update(Office office);
 
     /**
-     * 4. api/office/save
-     * Сохранть office
-     * {@inheritDoc}
+     * 8. api/office/save
+     * сохранить офис
+     *
+     * @param office
      */
-    public void save(Office office) {
-        em.persist(office);
-    }
-
-    private CriteriaQuery<Office> buildCriteria(String name) {
-        CriteriaBuilder builder = em.getCriteriaBuilder();
-        CriteriaQuery<Office> criteria = builder.createQuery(Office.class);
-
-        Root<Office> office = criteria.from(Office.class);
-        criteria.where(builder.equal(office.get("name"), name));
-
-        return criteria;
-    }
+     void save(Office office);
 }

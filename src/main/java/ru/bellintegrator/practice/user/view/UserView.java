@@ -17,19 +17,25 @@ public class UserView {
 
     public String phone;
 
-    public String docName;
-
-    public String docNumber;
-
-    public String docDate;
-
     public String citizenshipName;
 
     public String citizenshipCode;
 
     public String officeId;
 
-    public  boolean isIdentified;
+    public boolean isIdentified;
+
+    @ApiModelProperty(hidden = true)
+    public String docId;
+
+    public String docName;
+
+    public String docCode;
+
+    public String docNumber;
+
+    public String docDate;
+
 
     @Override
     public String toString() {
@@ -40,13 +46,15 @@ public class UserView {
                 ", middleName='" + middleName + '\'' +
                 ", position='" + position + '\'' +
                 ", phone='" + phone + '\'' +
-                ", docName='" + docName + '\'' +
-                ", docNumber='" + docNumber + '\'' +
-                ", docDate='" + docDate + '\'' +
                 ", citizenshipName='" + citizenshipName + '\'' +
                 ", citizenshipCode='" + citizenshipCode + '\'' +
                 ", officeId='" + officeId + '\'' +
                 ", isIdentified=" + isIdentified +
+                ", docId='" + docId + '\'' +
+                ", docName='" + docName + '\'' +
+                ", docCode='" + docCode + '\'' +
+                ", docNumber='" + docNumber + '\'' +
+                ", docDate='" + docDate + '\'' +
                 '}';
     }
 }

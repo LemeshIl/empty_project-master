@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.bellintegrator.practice.office.service.OfficeService;
+import ru.bellintegrator.practice.office.service.OfficeServiceImpl;
 import ru.bellintegrator.practice.office.view.OfficeView;
 
 import java.util.List;
@@ -16,17 +16,15 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RequestMapping(value = "/api/office", produces = APPLICATION_JSON_VALUE)
 public class OfficeController {
 
-    private final OfficeService officeService;
+    private final OfficeServiceImpl officeService;
 
     @Autowired
-    public OfficeController(OfficeService officeService) {//конструктор
+    public OfficeController(OfficeServiceImpl officeService) {//конструктор
         this.officeService = officeService;
     }
 
     /**
-     * 5. api/office/list/
-     * @param
-     * @return
+     * 5. api/office/list
      */
     @ApiOperation(value = "getOffices", nickname = "geOffices", httpMethod = "POST")
     @PostMapping("/list")
@@ -36,8 +34,6 @@ public class OfficeController {
 
     /**
      * 6. api/office/{id}
-     * @param id
-     * @return
      */
     @ApiOperation(value = "getOffice", nickname = "getOffice", httpMethod = "GET")//описание операции
     @GetMapping("/{id}")//=@RequestMapping(method=RequestMethod.GET)
@@ -47,8 +43,6 @@ public class OfficeController {
 
     /**
      * 7. api/office/update
-     * @param office
-     * @return
      */
     @ApiOperation(value = "addOffice", nickname = "addOffice", httpMethod = "POST")
     @ApiResponses(value = {
@@ -57,14 +51,11 @@ public class OfficeController {
             @ApiResponse(code = 500, message = "Failure")})
     @PostMapping("/update")
     public void updateOffice(@RequestBody OfficeView office) {
-       officeService.update(office);
+        officeService.update(office);
     }
 
     /**
      * 8. api/office/save
-     * @param office
-     * @return
-     *
      */
     @ApiOperation(value = "addOffice", nickname = "addOffice", httpMethod = "POST")
     @ApiResponses(value = {

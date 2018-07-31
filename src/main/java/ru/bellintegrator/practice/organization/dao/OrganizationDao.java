@@ -1,74 +1,43 @@
 package ru.bellintegrator.practice.organization.dao;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import ru.bellintegrator.practice.organization.model.Organization;
+import ru.bellintegrator.practice.person.model.Person;
 
-import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 import java.util.List;
 
 /**
- * {@inheritDoc}
+ * DAO для работы с Organization
  */
-@Repository
-public class OrganizationDao {
-
-    private final EntityManager em;
-
-    @Autowired
-    public OrganizationDao(EntityManager em) {
-        this.em = em;
-    }
+public interface OrganizationDao {
 
     /**
      * 1. api/organization/list
-     * получить список organizations
-     * {@inheritDoc}
+     * Получить список организаций
+     *
+     * @return {@Organization}
      */
-    public List<Organization> organizations(String name) {
-        TypedQuery<Organization> query = em.createQuery("SELECT o FROM Organization o WHERE o.name=:name",
-                Organization.class).setParameter("name", name);
-        return query.getResultList();
-    }
+    List<Organization> organizations(String name);
 
     /**
      * 2. api/organization/{id}
-     * Получить organization по id
-     * {@inheritDoc}
+     * Получить организацию по id
+     *
+     * @param id
+     * @return
      */
-    public Organization loadById(Long id) {
-        return em.find(Organization.class, id);
-    }
+    Organization loadById(Long id);
 
     /**
      * 3. api/organization/update
-     * Обновить organization
+     * Обновить организацию
      * {@inheritDoc}
      */
-    public void update(Organization organization) {
-        em.merge(organization);
-    }
+     void update(Organization organization);
 
     /**
      * 4. api/organization/save
-     * Сохранть organization
+     * Сохранть организацию
      * {@inheritDoc}
      */
-    public void save(Organization organization) {
-        em.persist(organization);
-    }
-
-    private CriteriaQuery<Organization> buildCriteria(String name) {
-        CriteriaBuilder builder = em.getCriteriaBuilder();
-        CriteriaQuery<Organization> criteria = builder.createQuery(Organization.class);
-
-        Root<Organization> organization = criteria.from(Organization.class);
-        criteria.where(builder.equal(organization.get("name"), name));
-
-        return criteria;
-    }
+     void save(Organization organization);
 }

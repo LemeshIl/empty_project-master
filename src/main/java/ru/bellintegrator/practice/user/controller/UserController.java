@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.bellintegrator.practice.user.service.UserService;
+import ru.bellintegrator.practice.user.service.UserServiceImpl;
 import ru.bellintegrator.practice.user.view.UserView;
 
 import java.util.List;
@@ -13,40 +13,43 @@ import java.util.List;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
-@RequestMapping(value = "/api", produces = APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/user", produces = APPLICATION_JSON_VALUE)
 public class UserController {
 
-    private final UserService userService;
+    private final UserServiceImpl userService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserServiceImpl userService) {
         this.userService = userService;
     }
 
     /**
      * 9. api/user/list
+     *
      * @param
      * @return
      */
     @ApiOperation(value = "getUsers", nickname = "getUsers", httpMethod = "POST")
-    @PostMapping("/uers/list")
+    @PostMapping("/list")
     public List<UserView> listUsers(@RequestBody UserView user) {
         return userService.users(user);
     }
 
     /**
      * 10. api/user/{id}
+     *
      * @param id
      * @return
      */
     @ApiOperation(value = "getUser", nickname = "getUser", httpMethod = "GET")//описание операции
-    @GetMapping("/user/{id}")//=@RequestMapping(method=RequestMethod.GET)
+    @GetMapping("/{id}")//=@RequestMapping(method=RequestMethod.GET)
     public UserView getUser(@PathVariable(name = "id", required = true) long id) {
         return userService.user(id);
     }
 
     /**
      * 11. api/user/update
+     *
      * @param user
      * @return
      */
@@ -55,13 +58,14 @@ public class UserController {
             @ApiResponse(code = 200, message = "Success", response = String.class),
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
-    @PostMapping("/user/update")
+    @PostMapping("/update")
     public void updateUser(@RequestBody UserView user) {
         userService.update(user);
     }
 
     /**
      * 12. api/user/save
+     *
      * @param user
      * @return
      */
@@ -70,8 +74,8 @@ public class UserController {
             @ApiResponse(code = 200, message = "Success", response = String.class),
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")})
-    @PostMapping("/user/save")
+    @PostMapping("/save")
     public void addUser(@RequestBody UserView user) {
-        userService. add(user);
+        userService.add(user);
     }
 }

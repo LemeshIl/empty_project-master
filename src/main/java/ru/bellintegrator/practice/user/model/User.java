@@ -1,6 +1,10 @@
 package ru.bellintegrator.practice.user.model;
 
+import ru.bellintegrator.practice.house.model.House;
+import ru.bellintegrator.practice.userDocs.model.UserDocs;
+
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Пользователь
@@ -14,6 +18,7 @@ public class User {
     @GeneratedValue(generator = "SEQ_USER_BELL", strategy = GenerationType.SEQUENCE)
     @Column(name = "Id")
     private Long id;
+
 
     /**
      * Первое имя
@@ -46,24 +51,6 @@ public class User {
     private String phone;
 
     /**
-     * имя документа
-     */
-    @Column(name = "docName", length = 50, nullable = false)
-    private String docName;
-
-    /**
-     * номер документа
-     */
-    @Column(name = "docNumber", nullable = false)
-    private String docNumber;
-
-    /**
-     * дата создания документа
-     */
-    @Column(name = "docDate", length = 50, nullable = false)
-    private String docDate;
-
-    /**
      * гражданство
      */
     @Column(name = "citizenshipName", length = 50, nullable = false)
@@ -87,6 +74,18 @@ public class User {
     @Column(name = "isIdentified", length = 10, nullable = false)
     private boolean isIdentified;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "userDocsId")
+    private UserDocs userDocs;
+
+    public UserDocs getUserDocs() {
+        return userDocs;
+    }
+
+    public void setUserDocs(UserDocs userDocs) {
+        this.userDocs = userDocs;
+    }
+
     /**
      * Конструктор для hibernate
      */
@@ -94,21 +93,36 @@ public class User {
 
     }
 
-    public User(String firstName, String secondName, String middleName, String position,
-                String phone, String docName, String docNumber, String docDate,
-                String citizenshipName, String citizenshipCode, Long officeId, boolean isIdentified) {
+    public User(String firstName, String secondName, String middleName,
+                String position, String phone, String citizenshipName,
+                String citizenshipCode, Long officeId, boolean isIdentified,UserDocs userDocs) {
         this.firstName = firstName;
         this.secondName = secondName;
         this.middleName = middleName;
         this.position = position;
         this.phone = phone;
-        this.docName = docName;
-        this.docNumber = docNumber;
-        this.docDate = docDate;
         this.citizenshipName = citizenshipName;
         this.citizenshipCode = citizenshipCode;
         this.officeId = officeId;
         this.isIdentified = isIdentified;
+        this.userDocs=userDocs;
+
+    }
+
+    public User(Long id,String firstName, String secondName, String middleName,
+                String position, String phone, String citizenshipName,
+                String citizenshipCode, Long officeId, boolean isIdentified,UserDocs userDocs) {
+        this.id=id;
+        this.firstName = firstName;
+        this.secondName = secondName;
+        this.middleName = middleName;
+        this.position = position;
+        this.phone = phone;
+        this.citizenshipName = citizenshipName;
+        this.citizenshipCode = citizenshipCode;
+        this.officeId = officeId;
+        this.isIdentified = isIdentified;
+        this.userDocs=userDocs;
     }
 
     public Long getId() {
@@ -159,30 +173,6 @@ public class User {
         this.phone = phone;
     }
 
-    public String getDocName() {
-        return docName;
-    }
-
-    public void setDocName(String docName) {
-        this.docName = docName;
-    }
-
-    public String getDocNumber() {
-        return docNumber;
-    }
-
-    public void setDocNumber(String docNumber) {
-        this.docNumber = docNumber;
-    }
-
-    public String getDocDate() {
-        return docDate;
-    }
-
-    public void setDocDate(String docDate) {
-        this.docDate = docDate;
-    }
-
     public String getCitizenshipName() {
         return citizenshipName;
     }
@@ -215,6 +205,7 @@ public class User {
         isIdentified = identified;
     }
 
+
     @Override
     public String toString() {
         return "User{" +
@@ -223,14 +214,12 @@ public class User {
                 ", secondName='" + secondName + '\'' +
                 ", middleName='" + middleName + '\'' +
                 ", position='" + position + '\'' +
-                ", phone=" + phone +
-                ", docName='" + docName + '\'' +
-                ", docNumber=" + docNumber +
-                ", docDate='" + docDate + '\'' +
+                ", phone='" + phone + '\'' +
                 ", citizenshipName='" + citizenshipName + '\'' +
                 ", citizenshipCode='" + citizenshipCode + '\'' +
                 ", officeId=" + officeId +
                 ", isIdentified=" + isIdentified +
+                ", userDocs=" + userDocs +
                 '}';
     }
 }
