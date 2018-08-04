@@ -6,7 +6,7 @@ import ru.bellintegrator.practice.organization.model.Organization;
 import java.util.List;
 
 /**
- * DAO для работы с Organization
+ * DAO для работы с Office
  */
 public interface OfficeDao {
     /**
