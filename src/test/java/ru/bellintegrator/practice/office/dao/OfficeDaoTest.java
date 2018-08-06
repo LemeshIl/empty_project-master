@@ -11,18 +11,15 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.practice.Application;
 import ru.bellintegrator.practice.office.model.Office;
-import ru.bellintegrator.practice.organization.model.Organization;
 
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {Application.class})
 @WebAppConfiguration(value = "src/main/resources")
 @Transactional
 @DirtiesContext
-public class OfficeDaoImplTest {
+public class OfficeDaoTest {
 
     @Autowired
     private OfficeDao officeDao;
@@ -74,14 +71,13 @@ public class OfficeDaoImplTest {
     /**
      * Сохранить офис
      */
-//    @Test
-//    public void save() {
-//        Office office = new Office();
-//        String ofName = "Восток";
-//        office.setName(ofName);
-//        office.setPhone("252525");
-//        officeDao.save(office);
-//        List<Office>offices=officeDao.offices(ofName);
-//        Assert.assertFalse(offices.isEmpty());
-//    }
+    @Test
+    public void save() {
+        Office office = new Office();
+        Long orgId = 50L;
+        office.setOrgId(orgId);
+        officeDao.save(office);
+        List<Office> offices = officeDao.offices(orgId);
+        Assert.assertFalse(offices.isEmpty());
+    }
 }
